@@ -11,12 +11,39 @@ public class Paper {
     }
 
     public void erase(String text) {
-        int firstLetterIndex = content.lastIndexOf(text);
-        int terminatingIndex = firstLetterIndex + text.length();
         String erasedWord = text.replaceAll(".", " ");
 
-        StringBuilder newText = new StringBuilder(content);
-        newText.replace(firstLetterIndex, terminatingIndex, erasedWord);
-        content = newText.toString();
+        replaceSubstring(text, erasedWord);
+    }
+
+    public void edit(String erasedWord, String replacementWord) {
+        StringBuilder replacementWordWithSpaces = new StringBuilder(replacementWord);
+        int lengthDifference = erasedWord.length() - replacementWord.length();
+        for(int i = 0; i < lengthDifference; i++){
+            replacementWordWithSpaces.append(" ");
+        }
+
+        replaceSubstring(erasedWord, replacementWordWithSpaces.toString());
+    }
+
+
+    private void replaceSubstring(String erasedWord, String replacementWord){
+        if (erasedWord.length() > replacementWord.length()) {
+            replaceWithEqualOrShorterLengthSubstring(erasedWord, replacementWord);
+        }
+
+        if (erasedWord.length() == replacementWord.length()) {
+            replaceWithEqualOrShorterLengthSubstring(erasedWord, replacementWord);
+        }
+    }
+
+    private void replaceWithEqualOrShorterLengthSubstring(String erasedWord, String replacementWord){
+        int firstLetterIndex = content.lastIndexOf(erasedWord);
+        int terminatingIndex = firstLetterIndex + replacementWord.length();
+        StringBuilder tempBuilder = new StringBuilder(content);
+
+        tempBuilder.replace(firstLetterIndex, terminatingIndex, replacementWord);
+
+        content = tempBuilder.toString();
     }
 }

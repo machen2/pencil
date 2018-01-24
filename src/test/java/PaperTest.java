@@ -73,11 +73,16 @@ public class PaperTest {
     }
 
     @Test
-    public void givenPaperWithAFullSentenceWithTheSameWordTwiceConsecutiveErasesOccursTwice() {
-        paper.write("How much wood would a woodchuck chuck if a woodchuck could chuck wood?");
-        paper.erase("chuck");
-        paper.erase("chuck");
-        assertEquals("How much wood would a woodchuck chuck if a wood      could       wood?", paper.getText());
+    public void givenASentenceWhenErasingAReplacementWordOfTheSameLengthCanBeInserted() {
+        paper.write("An apple a day keeps the doctor away");
+        paper.edit("apple", "onion");
+        assertEquals("An onion a day keeps the doctor away", paper.getText());
     }
 
+    @Test
+    public void givenASentenceWhenErasingAReplacementWordOfTheShorterLengthCanBeInsertedWithExcessSpacesShouldRemain() {
+        paper.write("An apple a day keeps the doctor away");
+        paper.edit("apple", "egg");
+        assertEquals("An egg   a day keeps the doctor away", paper.getText());
+    }
 }
