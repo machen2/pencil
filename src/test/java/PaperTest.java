@@ -80,9 +80,18 @@ public class PaperTest {
     }
 
     @Test
-    public void givenASentenceWhenErasingAReplacementWordOfTheShorterLengthCanBeInsertedWithExcessSpacesShouldRemain() {
+    public void givenASentenceWhenErasingAReplacementWordOfShorterLengthItCanBeInsertedWithExcessSpacesRemaining() {
         paper.write("An apple a day keeps the doctor away");
         paper.edit("apple", "egg");
         assertEquals("An egg   a day keeps the doctor away", paper.getText());
     }
+
+    @Test
+    public void givenASentenceWhenReplacingAWordWithALargerWordCollisionsOccur() {
+        paper.write("An apple a day keeps the doctor away");
+        paper.edit("apple", "tomorrow");
+        assertEquals("An tomorr@wday keeps the doctor away", paper.getText());
+    }
+
+
 }
