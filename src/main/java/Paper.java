@@ -28,11 +28,7 @@ public class Paper {
 
 
     private void replaceSubstring(String erasedWord, String replacementWord){
-        if (erasedWord.length() > replacementWord.length()) {
-            replaceWithEqualOrShorterLengthSubstring(erasedWord, replacementWord);
-        }
-
-        if (erasedWord.length() == replacementWord.length()) {
+        if (erasedWord.length() >= replacementWord.length()) {
             replaceWithEqualOrShorterLengthSubstring(erasedWord, replacementWord);
         }
 
